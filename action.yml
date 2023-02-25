@@ -1,5 +1,5 @@
-name: '{{cookiecutter.lib_name}}'
-description: '{{cookiecutter.description}}'
+name: 'version-test-dummy'
+description: 'Dummy function for testing ajparsons/sha-version-warning'
 version: 0.1.0
 
 inputs:
@@ -9,7 +9,7 @@ inputs:
 outputs:
   example_output:
     description: "The repo of 'user/repo'."
-    value: ${{ '{{' }} steps.example_step.outputs.repo_name {{ '}}' }}
+    value: ${{ steps.example_step.outputs.repo_name }}
 
 runs:
   using: "composite"
@@ -18,7 +18,7 @@ runs:
     - name: Test if this action is being referenced safely
       uses: ajparsons/sha-version-warning@53c5e9cbf96afb276cb2cf486ebd45c5d5db0e11 # v1.0.1
       with: 
-        action_path: ${{ '{{' }} github.action_path {{ '}}' }}
+        action_path: ${{ github.action_path }}
 
     - name: Example step
       id: example_step
@@ -26,5 +26,5 @@ runs:
       run: |
         echo "example_output=hello world $EXAMPLE_INPUT" >> $GITHUB_OUTPUT
       env:
-        EXAMPLE_INPUT: ${{ '{{' }} inputs.example_input {{ '}}' }}
+        EXAMPLE_INPUT: ${{ inputs.example_input }}
     
