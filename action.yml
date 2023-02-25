@@ -2,29 +2,19 @@ name: 'version-test-dummy'
 description: 'Dummy function for testing ajparsons/sha-version-warning'
 version: 0.1.0
 
-inputs:
-  example_input: 
-    description: 'Example input'
-    required: true
+
 outputs:
-  example_output:
-    description: "The repo of 'user/repo'."
-    value: ${{ steps.example_step.outputs.repo_name }}
+  warning_given:
+    description: "If sha-version-warning gave a warning"
+    value: ${{ steps.warning_step.outputs.warning_given }}
 
 runs:
   using: "composite"
   steps:
 
+      # call main because that's actually what we're testing here
     - name: Test if this action is being referenced safely
-      uses: ajparsons/sha-version-warning@53c5e9cbf96afb276cb2cf486ebd45c5d5db0e11 # v1.0.1
+      id: warning_step
+      uses: ajparsons/sha-version-warning@main
       with: 
         action_path: ${{ github.action_path }}
-
-    - name: Example step
-      id: example_step
-      shell: bash
-      run: |
-        echo "example_output=hello world $EXAMPLE_INPUT" >> $GITHUB_OUTPUT
-      env:
-        EXAMPLE_INPUT: ${{ inputs.example_input }}
-    
